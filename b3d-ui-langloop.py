@@ -2,11 +2,11 @@
 
 bl_info = {
     "name": "b3d-ui-langloop",
-    "author": "柚桑 / issac",
+    "author": "Yusang / issac",
     "version": (1, 0, 1),
     "blender": (5, 0, 0),
     "location": "Edit > Preferences > Add-ons",
-    "description": "快速切換 Blender 介面語系",
+    "description": "Quick language switching for Blender interface",
     "category": "Interface",
 }
 
@@ -16,40 +16,134 @@ from bpy.props import IntProperty, EnumProperty
 from bpy.app.handlers import persistent
 
 
-def get_available_languages(self, context):
-    """取得所有可用的語系（回調函數版本）"""
-    languages = []
-    try:
-        # 使用 Blender 內建的語系列表和顯示名稱
-        import bpy.app.translations as translations
-        
-        for lang_code in translations.locales:
-            # 使用 Blender 的 locale_explode 來取得語言資訊
-            try:
-                # 嘗試取得該語系的本地化名稱
-                lang_name = translations.locale_explode(lang_code)[2]
-                if lang_name:
-                    display_name = f"{lang_name} - {lang_code}"
-                else:
-                    display_name = lang_code
-            except:
-                # 如果無法取得名稱，只顯示代碼
-                display_name = lang_code
-            
-            languages.append((lang_code, display_name, lang_code))
-            
-    except:
-        # 如果無法取得語系列表，返回預設值
-        languages = [('en_US', 'English (US) - en_US', 'English (US)')]
+# Internationalization dictionary
+i18n_dict = {
+    'en_US': {
+        'cycle_count': "Cycle Count",
+        'cycle_count_desc': "Number of languages to cycle through",
+        'language': "Language",
+        'select_languages': "Select languages to cycle:",
+        'shortcut_hint': "Shortcut settings: Edit > Preferences > Keymap > Search 'b3d-ui-langloop'",
+        'restore_keymap': "Restore Keymap",
+        'keymap_restored': "Keymap restored! Please restart Blender to ensure it takes effect.",
+        'switch_to': "Switched to language:",
+    },
+    'zh_HANS': {
+        'cycle_count': "循环切换数",
+        'cycle_count_desc': "要循环切换的语系数量",
+        'language': "语系",
+        'select_languages': "选择要循环的语系:",
+        'shortcut_hint': "快捷键设置:编辑 > 偏好设定 > 快捷键 > 搜索 'b3d-ui-langloop'",
+        'restore_keymap': "恢复快捷键",
+        'keymap_restored': "快捷键已恢复!请重启 Blender 以确保生效。",
+        'switch_to': "切换语系至:",
+    },
+    'zh_HANT': {
+        'cycle_count': "循環切換數",
+        'cycle_count_desc': "要循環切換的語系數量",
+        'language': "語系",
+        'select_languages': "選擇要循環的語系:",
+        'shortcut_hint': "快速鍵設定:編輯 > 偏好設定 > 快速鍵 > 搜尋 'b3d-ui-langloop'",
+        'restore_keymap': "恢復快速鍵",
+        'keymap_restored': "快速鍵已恢復!請重啟 Blender 以確保生效。",
+        'switch_to': "切換語系至:",
+    },
+    'ja_JP': {
+        'cycle_count': "循環切替数",
+        'cycle_count_desc': "循環切替する言語の数",
+        'language': "言語",
+        'select_languages': "循環する言語を選択:",
+        'shortcut_hint': "ショートカット設定:編集 > プリファレンス > キーマップ > 'b3d-ui-langloop' を検索",
+        'restore_keymap': "キーマップを復元",
+        'keymap_restored': "キーマップが復元されました!Blenderを再起動してください。",
+        'switch_to': "言語を切り替えました:",
+    },
+    'ko_KR': {
+        'cycle_count': "순환 전환 수",
+        'cycle_count_desc': "순환 전환할 언어 수",
+        'language': "언어",
+        'select_languages': "순환할 언어 선택:",
+        'shortcut_hint': "단축키 설정: 편집 > 환경설정 > 키맵 > 'b3d-ui-langloop' 검색",
+        'restore_keymap': "키맵 복원",
+        'keymap_restored': "키맵이 복원되었습니다! Blender를 재시작하세요.",
+        'switch_to': "언어 전환:",
+    },
+    'fr_FR': {
+        'cycle_count': "Nombre de cycles",
+        'cycle_count_desc': "Nombre de langues à parcourir",
+        'language': "Langue",
+        'select_languages': "Sélectionnez les langues à parcourir:",
+        'shortcut_hint': "Raccourcis clavier: Édition > Préférences > Raccourcis clavier > Rechercher 'b3d-ui-langloop'",
+        'restore_keymap': "Restaurer les raccourcis",
+        'keymap_restored': "Raccourcis restaurés! Veuillez redémarrer Blender pour assurer la prise en compte.",
+        'switch_to': "Langue changée:",
+    },
+}
+
+
+def get_text(key, lang=None):
+    """Get translated text based on current language"""
+    if lang is None:
+        try:
+            lang = bpy.context.preferences.view.language
+        except:
+            lang = 'en_US'
     
-    if not languages:
-        languages = [('en_US', 'English (US) - en_US', 'English (US)')]
+    # Fallback to English if language not found
+    if lang not in i18n_dict:
+        lang = 'en_US'
+    
+    return i18n_dict[lang].get(key, i18n_dict['en_US'].get(key, key))
+
+
+def get_available_languages(self, context):
+    """
+    實踐：當前語系翻譯 (A) - 原生名稱 (B) - 代碼
+    例如目前是中文時顯示：日文 - 日本語 - ja_JP
+    """
+    import bpy
+    import bpy.app.translations as translations
+    
+    languages = []
+    
+    # 直接透過 translations.locales 獲取官方支持列表，不依賴容易亂碼的 RNA 標籤
+    for lang_code in translations.locales:
+        if lang_code == 'DEFAULT':
+            continue
+            
+        try:
+            # locale_explode(lang_code) 回傳: (代碼, 英文名, 原生名)
+            # 例如: ('ja_JP', 'Japanese', '日本語')
+            info = translations.locale_explode(lang_code)
+            eng_name = info[1]
+            native_name = info[2] if info[2] else eng_name
+            
+            # --- 核心邏輯：實現 A - B ---
+            # 1. 將 eng_name (如 "Japanese") 丟進翻譯機。
+            #    如果當前是中文介面，這會回傳 "日文"
+            translated_name = translations.pgettext_iface(eng_name)
+            
+            # 2. 組合字串
+            # 如果 A 和 B 一樣 (例如英文介面下的 English)，就顯示一個即可
+            if translated_name != native_name:
+                display_name = f"{translated_name} - {native_name} - {lang_code}"
+            else:
+                display_name = f"{native_name} - {lang_code}"
+                
+        except Exception:
+            # 萬一發生異常，回退到顯示代碼
+            display_name = lang_code
+            
+        languages.append((lang_code, display_name, lang_code))
+    
+    # 依照語系代碼排序
+    languages.sort(key=lambda x: x[0])
     
     return languages
 
 
 class LANGSWITCH_OT_cycle_language(Operator):
-    """循環切換語系"""
+    """Cycle through languages"""
     bl_idname = "langswitch.cycle_language"
     bl_label = "b3d-ui-langloop"
     bl_options = {'REGISTER'}
@@ -58,26 +152,27 @@ class LANGSWITCH_OT_cycle_language(Operator):
         prefs = context.preferences.addons[__name__].preferences
         current_lang = context.preferences.view.language
         
-        # 建立已設定的語系列表
+        # Build the list of configured languages
         lang_list = []
         for i in range(prefs.cycle_count):
             lang_attr = f"language_{i}"
             if hasattr(prefs, lang_attr):
                 lang_list.append(getattr(prefs, lang_attr))
         
-        # 檢查當前語系是否在列表中
+        # Check if current language is in the list
         try:
             current_index = lang_list.index(current_lang)
-            # 在列表中，切換到下一個
+            # In list, switch to next
             next_index = (current_index + 1) % prefs.cycle_count
         except ValueError:
-            # 不在列表中，跳到 ID 0
+            # Not in list, jump to ID 0
             next_index = 0
         
-        # 設定新語系
+        # Set new language
         if lang_list and next_index < len(lang_list):
-            context.preferences.view.language = lang_list[next_index]
-            self.report({'INFO'}, f"切換語系至: {lang_list[next_index]}")
+            new_lang = lang_list[next_index]
+            context.preferences.view.language = new_lang
+            self.report({'INFO'}, f"{get_text('switch_to', current_lang)} {new_lang}")
         
         return {'FINISHED'}
 
@@ -86,173 +181,118 @@ class LANGSWITCH_Preferences(AddonPreferences):
     bl_idname = __name__
 
     def update_cycle_count(self, context):
-        """當循環切換數改變時更新"""
+        """Update when cycle count changes"""
         pass
 
     cycle_count: IntProperty(
-        name="循環切換數",
-        description="要循環切換的語系數量",
+        name="Cycle Count",
+        description="Number of languages to cycle through",
         default=2,
         min=2,
         max=10,
         update=update_cycle_count
     )
 
-    # 預先定義 10 個語系選擇欄位（使用回調函數）
+    # Pre-define 10 language selection fields (using callback function)
     language_0: EnumProperty(
-        name="語系 1",
+        name="Language 1",
         items=get_available_languages
     )
     
     language_1: EnumProperty(
-        name="語系 2",
+        name="Language 2",
         items=get_available_languages
     )
     
     language_2: EnumProperty(
-        name="語系 3",
+        name="Language 3",
         items=get_available_languages
     )
     
     language_3: EnumProperty(
-        name="語系 4",
+        name="Language 4",
         items=get_available_languages
     )
     
     language_4: EnumProperty(
-        name="語系 5",
+        name="Language 5",
         items=get_available_languages
     )
     
     language_5: EnumProperty(
-        name="語系 6",
+        name="Language 6",
         items=get_available_languages
     )
     
     language_6: EnumProperty(
-        name="語系 7",
+        name="Language 7",
         items=get_available_languages
     )
     
     language_7: EnumProperty(
-        name="語系 8",
+        name="Language 8",
         items=get_available_languages
     )
     
     language_8: EnumProperty(
-        name="語系 9",
+        name="Language 9",
         items=get_available_languages
     )
     
     language_9: EnumProperty(
-        name="語系 10",
+        name="Language 10",
         items=get_available_languages
     )
 
     def draw(self, context):
         layout = self.layout
-        
-        # 循環切換數設定
-        layout.prop(self, "cycle_count")
-        
-        layout.separator()
-        layout.label(text="選擇要循環的語系：")
-        
-        # 根據 cycle_count 顯示對應數量的語系選擇欄位
-        box = layout.box()
-        for i in range(self.cycle_count):
-            box.prop(self, f"language_{i}")
-        
-        layout.separator()
-        
-        # 取得當前語系來顯示對應的提示文字
         current_lang = context.preferences.view.language
         
-        # 多語言提示文字
-        hint_texts = {
-            'zh_HANS': "快捷键设置：编辑 > 偏好设定 > 快捷键 > 搜索 'b3d-ui-langloop'",
-            'zh_HANT': "快速鍵設定：編輯 > 偏好設定 > 快速鍵 > 搜尋 'b3d-ui-langloop'",
-            'ja_JP': "ショートカット設定：編集 > プリファレンス > キーマップ > 'b3d-ui-langloop' を検索",
-            'ko_KR': "단축키 설정: 편집 > 환경설정 > 키맵 > 'b3d-ui-langloop' 검색",
-            'fr_FR': "Raccourcis clavier : Édition > Préférences > Raccourcis clavier > Rechercher 'b3d-ui-langloop'",
-            'de_DE': "Tastenkürzel: Bearbeiten > Einstellungen > Keymap > Suche 'b3d-ui-langloop'",
-            'es_ES': "Atajos de teclado: Editar > Preferencias > Keymap > Buscar 'b3d-ui-langloop'",
-            'ru_RU': "Горячие клавиши: Правка > Настройки > Сочетания клавиш > Поиск 'b3d-ui-langloop'",
-            'it_IT': "Scorciatoie da tastiera: Modifica > Preferenze > Keymap > Cerca 'b3d-ui-langloop'",
-            'pt_BR': "Atalhos de teclado: Editar > Preferências > Keymap > Pesquisar 'b3d-ui-langloop'",
-            'pt_PT': "Atalhos de teclado: Editar > Preferências > Keymap > Pesquisar 'b3d-ui-langloop'",
-            'nl_NL': "Sneltoetsen: Bewerken > Voorkeuren > Keymap > Zoek 'b3d-ui-langloop'",
-            'pl_PL': "Skróty klawiszowe: Edycja > Preferencje > Keymap > Szukaj 'b3d-ui-langloop'",
-            'tr_TR': "Kısayol tuşları: Düzenle > Tercihler > Keymap > 'b3d-ui-langloop' ara",
-            'cs_CZ': "Klávesové zkratky: Upravit > Předvolby > Keymap > Hledat 'b3d-ui-langloop'",
-            'ar_EG': "اختصارات لوحة المفاتيح: تحرير > التفضيلات > Keymap > ابحث عن 'b3d-ui-langloop'",
-            'th_TH': "ปุ่มลัด: แก้ไข > การตั้งค่า > Keymap > ค้นหา 'b3d-ui-langloop'",
-            'vi_VN': "Phím tắt: Chỉnh sửa > Tùy chọn > Keymap > Tìm 'b3d-ui-langloop'",
-            'id_ID': "Pintasan keyboard: Edit > Preferensi > Keymap > Cari 'b3d-ui-langloop'",
-            'uk_UA': "Гарячі клавіші: Редагування > Налаштування > Keymap > Пошук 'b3d-ui-langloop'",
-            'sv_SE': "Kortkommandon: Redigera > Inställningar > Keymap > Sök 'b3d-ui-langloop'",
-            'da_DK': "Genveje: Rediger > Indstillinger > Keymap > Søg 'b3d-ui-langloop'",
-            'fi_FI': "Pikanäppäimet: Muokkaa > Asetukset > Keymap > Hae 'b3d-ui-langloop'",
-            'hu_HU': "Gyorsbillentyűk: Szerkesztés > Beállítások > Keymap > Keresés 'b3d-ui-langloop'",
-            'el_GR': "Συντομεύσεις πληκτρολογίου: Επεξεργασία > Προτιμήσεις > Keymap > Αναζήτηση 'b3d-ui-langloop'",
-            'ro_RO': "Taste rapide: Editare > Preferințe > Keymap > Căutare 'b3d-ui-langloop'",
-            'bg_BG': "Клавишни комбинации: Редактиране > Настройки > Keymap > Търсене 'b3d-ui-langloop'",
-            'he_IL': "קיצורי מקלדת: עריכה > העדפות > Keymap > חפש 'b3d-ui-langloop'",
-            'hi_IN': "कीबोर्ड शॉर्टकट: संपादित करें > प्राथमिकताएं > Keymap > 'b3d-ui-langloop' खोजें",
-            'hr_HR': "Prečaci tipkovnice: Uredi > Postavke > Keymap > Traži 'b3d-ui-langloop'",
-            'sk_SK': "Klávesové skratky: Upraviť > Predvoľby > Keymap > Hľadať 'b3d-ui-langloop'",
-        }
+        # Cycle count setting
+        layout.prop(self, "cycle_count", text=get_text('cycle_count', current_lang))
         
-        # 預設英文提示
-        hint_text = hint_texts.get(current_lang, 
-                                   "Shortcut settings: Edit > Preferences > Keymap > Search 'b3d-ui-langloop'")
+        layout.separator()
+        layout.label(text=get_text('select_languages', current_lang))
         
-        layout.label(text=hint_text)
+        # Display language selection fields based on cycle_count
+        box = layout.box()
+        for i in range(self.cycle_count):
+            box.prop(self, f"language_{i}", text=f"{get_text('language', current_lang)} {i+1}")
         
-
+        layout.separator()
+        layout.label(text=get_text('shortcut_hint', current_lang))
 
 
 class LANGSWITCH_OT_restore_keymap(Operator):
-    """恢復預設快捷鍵（需要重啟 Blender）"""
+    """Restore default keymap (requires Blender restart)"""
     bl_idname = "langswitch.restore_keymap"
-    bl_label = "恢復快捷鍵"
+    bl_label = "Restore Keymap"
     bl_options = {'REGISTER'}
     
     def execute(self, context):
         restore_keymap()
-        
-        # 多語言提示
         current_lang = context.preferences.view.language
-        messages = {
-            'zh_HANS': "快捷键已恢复！请重启 Blender 以确保生效。",
-            'zh_HANT': "快速鍵已恢復！請重啟 Blender 以確保生效。",
-            'ja_JP': "ショートカットが復元されました！Blenderを再起動してください。",
-            'ko_KR': "단축키가 복원되었습니다! Blender를 재시작하세요.",
-        }
-        
-        msg = messages.get(current_lang, "Keymap restored! Please restart Blender to ensure it takes effect.")
-        
-        self.report({'WARNING'}, msg)
+        self.report({'WARNING'}, get_text('keymap_restored', current_lang))
         return {'FINISHED'}
 
 
-# 快速鍵映射
+# Keymap storage
 addon_keymaps = []
 
 
 def restore_keymap():
-    """恢復快捷鍵的函數"""
+    """Function to restore keymap"""
     wm = bpy.context.window_manager
     
-    # 清除全局列表
+    # Clear global list
     addon_keymaps.clear()
     
-    # 嘗試在多個 keyconfig 中恢復
+    # Try to restore in multiple keyconfigs
     for kc_type in [wm.keyconfigs.addon, wm.keyconfigs.user]:
         if not kc_type:
             continue
             
-        # 找到或創建 Window keymap
+        # Find or create Window keymap
         km = None
         for existing_km in kc_type.keymaps:
             if existing_km.name == 'Window' and existing_km.space_type == 'EMPTY':
@@ -262,7 +302,7 @@ def restore_keymap():
         if not km:
             km = kc_type.keymaps.new(name='Window', space_type='EMPTY')
         
-        # 移除所有相同 idname 的項目（包括被標記為刪除的）
+        # Remove all items with the same idname (including those marked for deletion)
         items_to_remove = [kmi for kmi in km.keymap_items 
                           if kmi.idname == LANGSWITCH_OT_cycle_language.bl_idname]
         for kmi in items_to_remove:
@@ -271,7 +311,7 @@ def restore_keymap():
             except:
                 pass
         
-        # 重新創建快捷鍵
+        # Recreate keymap
         try:
             kmi = km.keymap_items.new(
                 LANGSWITCH_OT_cycle_language.bl_idname,
@@ -281,16 +321,16 @@ def restore_keymap():
                 ctrl=True,
                 shift=True
             )
-            # 確保是啟用的
+            # Ensure it's enabled
             kmi.active = True
             
-            # 只將 addon keyconfig 的添加到列表
+            # Only add addon keyconfig to list
             if kc_type == wm.keyconfigs.addon:
                 addon_keymaps.append((km, kmi))
         except Exception as e:
-            print(f"創建快捷鍵時發生錯誤: {e}")
+            print(f"Error creating keymap: {e}")
     
-    # 強制保存用戶偏好設定以持久化更改
+    # Force save user preferences to persist changes
     try:
         bpy.ops.wm.save_userpref()
     except:
@@ -299,19 +339,19 @@ def restore_keymap():
 
 @persistent
 def load_post_handler(dummy):
-    """在文件加載後檢查並恢復快捷鍵"""
-    # 給 Blender 一點時間完全加載
+    """Check and restore keymap after file load"""
+    # Give Blender some time to fully load
     bpy.app.timers.register(check_and_restore_keymap, first_interval=0.1)
 
 
 def check_and_restore_keymap():
-    """檢查快捷鍵是否存在，不存在則恢復"""
+    """Check if keymap exists, restore if not"""
     try:
         wm = bpy.context.window_manager
         kc = wm.keyconfigs.addon
         
         if kc:
-            # 檢查是否存在我們的快捷鍵
+            # Check if our keymap exists
             has_keymap = False
             for km in kc.keymaps:
                 if km.name == 'Window' and km.space_type == 'EMPTY':
@@ -321,13 +361,13 @@ def check_and_restore_keymap():
                             break
                     break
             
-            # 如果不存在，恢復它
+            # If it doesn't exist, restore it
             if not has_keymap:
                 restore_keymap()
     except:
         pass
     
-    return None  # 不重複執行
+    return None  # Don't repeat execution
 
 
 def register():
@@ -335,20 +375,20 @@ def register():
     bpy.utils.register_class(LANGSWITCH_OT_restore_keymap)
     bpy.utils.register_class(LANGSWITCH_Preferences)
     
-    # 註冊快速鍵
+    # Register keymap
     restore_keymap()
     
-    # 註冊加載後處理程序
+    # Register load post handler
     if load_post_handler not in bpy.app.handlers.load_post:
         bpy.app.handlers.load_post.append(load_post_handler)
 
 
 def unregister():
-    # 移除加載後處理程序
+    # Remove load post handler
     if load_post_handler in bpy.app.handlers.load_post:
         bpy.app.handlers.load_post.remove(load_post_handler)
     
-    # 移除快速鍵
+    # Remove keymap
     for km, kmi in addon_keymaps:
         try:
             km.keymap_items.remove(kmi)
