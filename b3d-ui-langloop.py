@@ -209,44 +209,7 @@ class LANGSWITCH_Preferences(AddonPreferences):
         
         layout.label(text=hint_text)
         
-        # # 添加恢復快捷鍵按鈕和說明
-        # layout.separator()
-        # box = layout.box()
-        
-        # current_lang = context.preferences.view.language
-        # info_texts = {
-        #     'zh_HANS': "如果快捷键丢失：",
-        #     'zh_HANT': "如果快速鍵遺失：",
-        #     'ja_JP': "ショートカットが消えた場合：",
-        #     'ko_KR': "단축키가 사라진 경우：",
-        # }
-        # step1_texts = {
-        #     'zh_HANS': "1. 点击下方按钮恢复快捷键",
-        #     'zh_HANT': "1. 點擊下方按鈕恢復快速鍵",
-        #     'ja_JP': "1. 下のボタンをクリック",
-        #     'ko_KR': "1. 아래 버튼 클릭",
-        # }
-        # step2_texts = {
-        #     'zh_HANS': "2. 保存偏好设定（Ctrl+Alt+U 或 编辑>偏好设定>保存偏好设定）",
-        #     'zh_HANT': "2. 儲存偏好設定（Ctrl+Alt+U 或 編輯>偏好設定>儲存偏好設定）",
-        #     'ja_JP': "2. プリファレンスを保存（Ctrl+Alt+U）",
-        #     'ko_KR': "2. 환경설정 저장（Ctrl+Alt+U）",
-        # }
-        # step3_texts = {
-        #     'zh_HANS': "3. 重启 Blender",
-        #     'zh_HANT': "3. 重啟 Blender",
-        #     'ja_JP': "3. Blenderを再起動",
-        #     'ko_KR': "3. Blender 재시작",
-        # }
-        
-        # box.label(text=info_texts.get(current_lang, "If keymap is missing:"), icon='INFO')
-        # box.label(text=step1_texts.get(current_lang, "1. Click the button below"))
-        # box.label(text=step2_texts.get(current_lang, "2. Save Preferences (Ctrl+Alt+U)"))
-        # box.label(text=step3_texts.get(current_lang, "3. Restart Blender"))
-        
-        # row = box.row()
-        # row.scale_y = 1.5
-        # row.operator("langswitch.restore_keymap", text="🔄 " + ("恢復快捷鍵" if current_lang.startswith('zh') else "Restore Keymap"), icon='FILE_REFRESH')
+
 
 
 class LANGSWITCH_OT_restore_keymap(Operator):
