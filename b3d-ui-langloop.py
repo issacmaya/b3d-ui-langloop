@@ -10,19 +10,24 @@ bl_info = {
     "category": "Interface",
 }
 
-
-
 import bpy
 from bpy.types import Operator, AddonPreferences
 from bpy.props import IntProperty, EnumProperty
 
 
-def get_available_languages():
-    """取得所有可用的語系"""
+def get_available_languages(self, context):
+    """取得所有可用的語系（回調函數版本）"""
     languages = []
-    for lang in bpy.app.translations.locales:
-        # 使用語系代碼和顯示名稱
-        languages.append((lang, lang, lang))
+    try:
+        for lang in bpy.app.translations.locales:
+            languages.append((lang, lang, lang))
+    except:
+        # 如果無法取得語系列表，返回預設值
+        languages = [('en_US', 'English', 'English')]
+    
+    if not languages:
+        languages = [('en_US', 'English', 'English')]
+    
     return languages
 
 
@@ -65,7 +70,6 @@ class LANGSWITCH_Preferences(AddonPreferences):
 
     def update_cycle_count(self, context):
         """當循環切換數改變時更新"""
-        # 這個函數確保界面更新
         pass
 
     cycle_count: IntProperty(
@@ -77,65 +81,55 @@ class LANGSWITCH_Preferences(AddonPreferences):
         update=update_cycle_count
     )
 
-    # 預先定義 10 個語系選擇欄位
+    # 預先定義 10 個語系選擇欄位（使用回調函數）
     language_0: EnumProperty(
         name="語系 1",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_1: EnumProperty(
         name="語系 2",
-        items=get_available_languages,
-        default=1 if len(get_available_languages()) > 1 else 0
+        items=get_available_languages
     )
     
     language_2: EnumProperty(
         name="語系 3",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_3: EnumProperty(
         name="語系 4",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_4: EnumProperty(
         name="語系 5",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_5: EnumProperty(
         name="語系 6",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_6: EnumProperty(
         name="語系 7",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_7: EnumProperty(
         name="語系 8",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_8: EnumProperty(
         name="語系 9",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
     
     language_9: EnumProperty(
         name="語系 10",
-        items=get_available_languages,
-        default=0
+        items=get_available_languages
     )
 
     def draw(self, context):
