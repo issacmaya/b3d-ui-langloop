@@ -19,14 +19,30 @@ def get_available_languages(self, context):
     """取得所有可用的語系（回調函數版本）"""
     languages = []
     try:
-        for lang in bpy.app.translations.locales:
-            languages.append((lang, lang, lang))
+        # 使用 Blender 內建的語系列表和顯示名稱
+        import bpy.app.translations as translations
+        
+        for lang_code in translations.locales:
+            # 使用 Blender 的 locale_explode 來取得語言資訊
+            try:
+                # 嘗試取得該語系的本地化名稱
+                lang_name = translations.locale_explode(lang_code)[2]
+                if lang_name:
+                    display_name = f"{lang_name} - {lang_code}"
+                else:
+                    display_name = lang_code
+            except:
+                # 如果無法取得名稱，只顯示代碼
+                display_name = lang_code
+            
+            languages.append((lang_code, display_name, lang_code))
+            
     except:
         # 如果無法取得語系列表，返回預設值
-        languages = [('en_US', 'English', 'English')]
+        languages = [('en_US', 'English (US) - en_US', 'English (US)')]
     
     if not languages:
-        languages = [('en_US', 'English', 'English')]
+        languages = [('en_US', 'English (US) - en_US', 'English (US)')]
     
     return languages
 
@@ -34,7 +50,7 @@ def get_available_languages(self, context):
 class LANGSWITCH_OT_cycle_language(Operator):
     """循環切換語系"""
     bl_idname = "langswitch.cycle_language"
-    bl_label = "Cycle Language"
+    bl_label = "b3d-ui-langloop"
     bl_options = {'REGISTER'}
 
     def execute(self, context):
@@ -147,7 +163,50 @@ class LANGSWITCH_Preferences(AddonPreferences):
             box.prop(self, f"language_{i}")
         
         layout.separator()
-        layout.label(text="快速鍵設定請至：編輯 > 偏好設定 > 快速鍵 > 搜尋 'Cycle Language'")
+        
+        # 取得當前語系來顯示對應的提示文字
+        current_lang = context.preferences.view.language
+        
+        # 多語言提示文字
+        hint_texts = {
+            'zh_HANS': "快捷键设置：编辑 > 偏好设定 > 快捷键 > 搜索 'b3d-ui-langloop'",
+            'zh_HANT': "快速鍵設定：編輯 > 偏好設定 > 快速鍵 > 搜尋 'b3d-ui-langloop'",
+            'ja_JP': "ショートカット設定：編集 > プリファレンス > キーマップ > 'b3d-ui-langloop' を検索",
+            'ko_KR': "단축키 설정: 편집 > 환경설정 > 키맵 > 'b3d-ui-langloop' 검색",
+            'fr_FR': "Raccourcis clavier : Édition > Préférences > Raccourcis clavier > Rechercher 'b3d-ui-langloop'",
+            'de_DE': "Tastenkürzel: Bearbeiten > Einstellungen > Keymap > Suche 'b3d-ui-langloop'",
+            'es_ES': "Atajos de teclado: Editar > Preferencias > Keymap > Buscar 'b3d-ui-langloop'",
+            'ru_RU': "Горячие клавиши: Правка > Настройки > Сочетания клавиш > Поиск 'b3d-ui-langloop'",
+            'it_IT': "Scorciatoie da tastiera: Modifica > Preferenze > Keymap > Cerca 'b3d-ui-langloop'",
+            'pt_BR': "Atalhos de teclado: Editar > Preferências > Keymap > Pesquisar 'b3d-ui-langloop'",
+            'pt_PT': "Atalhos de teclado: Editar > Preferências > Keymap > Pesquisar 'b3d-ui-langloop'",
+            'nl_NL': "Sneltoetsen: Bewerken > Voorkeuren > Keymap > Zoek 'b3d-ui-langloop'",
+            'pl_PL': "Skróty klawiszowe: Edycja > Preferencje > Keymap > Szukaj 'b3d-ui-langloop'",
+            'tr_TR': "Kısayol tuşları: Düzenle > Tercihler > Keymap > 'b3d-ui-langloop' ara",
+            'cs_CZ': "Klávesové zkratky: Upravit > Předvolby > Keymap > Hledat 'b3d-ui-langloop'",
+            'ar_EG': "اختصارات لوحة المفاتيح: تحرير > التفضيلات > Keymap > ابحث عن 'b3d-ui-langloop'",
+            'th_TH': "ปุ่มลัด: แก้ไข > การตั้งค่า > Keymap > ค้นหา 'b3d-ui-langloop'",
+            'vi_VN': "Phím tắt: Chỉnh sửa > Tùy chọn > Keymap > Tìm 'b3d-ui-langloop'",
+            'id_ID': "Pintasan keyboard: Edit > Preferensi > Keymap > Cari 'b3d-ui-langloop'",
+            'uk_UA': "Гарячі клавіші: Редагування > Налаштування > Keymap > Пошук 'b3d-ui-langloop'",
+            'sv_SE': "Kortkommandon: Redigera > Inställningar > Keymap > Sök 'b3d-ui-langloop'",
+            'da_DK': "Genveje: Rediger > Indstillinger > Keymap > Søg 'b3d-ui-langloop'",
+            'fi_FI': "Pikanäppäimet: Muokkaa > Asetukset > Keymap > Hae 'b3d-ui-langloop'",
+            'hu_HU': "Gyorsbillentyűk: Szerkesztés > Beállítások > Keymap > Keresés 'b3d-ui-langloop'",
+            'el_GR': "Συντομεύσεις πληκτρολογίου: Επεξεργασία > Προτιμήσεις > Keymap > Αναζήτηση 'b3d-ui-langloop'",
+            'ro_RO': "Taste rapide: Editare > Preferințe > Keymap > Căutare 'b3d-ui-langloop'",
+            'bg_BG': "Клавишни комбинации: Редактиране > Настройки > Keymap > Търсене 'b3d-ui-langloop'",
+            'he_IL': "קיצורי מקלדת: עריכה > העדפות > Keymap > חפש 'b3d-ui-langloop'",
+            'hi_IN': "कीबोर्ड शॉर्टकट: संपादित करें > प्राथमिकताएं > Keymap > 'b3d-ui-langloop' खोजें",
+            'hr_HR': "Prečaci tipkovnice: Uredi > Postavke > Keymap > Traži 'b3d-ui-langloop'",
+            'sk_SK': "Klávesové skratky: Upraviť > Predvoľby > Keymap > Hľadať 'b3d-ui-langloop'",
+        }
+        
+        # 預設英文提示
+        hint_text = hint_texts.get(current_lang, 
+                                   "Shortcut settings: Edit > Preferences > Keymap > Search 'b3d-ui-langloop'")
+        
+        layout.label(text=hint_text)
 
 
 # 快速鍵映射
