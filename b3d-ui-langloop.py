@@ -507,8 +507,9 @@ def restore_keymap():
         try:
             kmi = km.keymap_items.new(
                 LANGSWITCH_OT_cycle_language.bl_idname,
-                type='L',
+                type='T',
                 value='PRESS',
+                alt=True,
                 ctrl=True,
                 shift=True
             )
