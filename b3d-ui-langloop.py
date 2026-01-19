@@ -96,50 +96,52 @@ def get_text(key, lang=None):
     return i18n_dict[lang].get(key, i18n_dict['en_US'].get(key, key))
 
 
-def get_available_languages(self, context):
-    """
-    實踐：當前語系翻譯 (A) - 原生名稱 (B) - 代碼
-    例如目前是中文時顯示：日文 - 日本語 - ja_JP
-    """
-    import bpy
-    import bpy.app.translations as translations
+# Global cache for language list
+_cached_languages = []
+
+def build_language_cache():
+    """Build language list cache at registration time"""
+    global _cached_languages
+    _cached_languages = []
     
-    languages = []
+    # Save current language
+    original_lang = bpy.context.preferences.view.language
     
-    # 直接透過 translations.locales 獲取官方支持列表，不依賴容易亂碼的 RNA 標籤
-    for lang_code in translations.locales:
-        if lang_code == 'DEFAULT':
-            continue
+    try:
+        # Switch to English to get clean language names
+        bpy.context.preferences.view.language = 'en_US'
+        
+        # Access Blender's language enum
+        prefs_view = bpy.types.PreferencesView
+        lang_prop = prefs_view.bl_rna.properties['language']
+        
+        # Build the list
+        for item in lang_prop.enum_items:
+            _cached_languages.append((item.identifier, item.name, item.identifier))
             
+    except Exception as e:
+        print(f"Error building language cache: {e}")
+        _cached_languages = [('en_US', 'English (US)', 'en_US')]
+    finally:
+        # Restore original language
         try:
-            # locale_explode(lang_code) 回傳: (代碼, 英文名, 原生名)
-            # 例如: ('ja_JP', 'Japanese', '日本語')
-            info = translations.locale_explode(lang_code)
-            eng_name = info[1]
-            native_name = info[2] if info[2] else eng_name
-            
-            # --- 核心邏輯：實現 A - B ---
-            # 1. 將 eng_name (如 "Japanese") 丟進翻譯機。
-            #    如果當前是中文介面，這會回傳 "日文"
-            translated_name = translations.pgettext_iface(eng_name)
-            
-            # 2. 組合字串
-            # 如果 A 和 B 一樣 (例如英文介面下的 English)，就顯示一個即可
-            if translated_name != native_name:
-                display_name = f"{translated_name} - {native_name} - {lang_code}"
-            else:
-                display_name = f"{native_name} - {lang_code}"
-                
-        except Exception:
-            # 萬一發生異常，回退到顯示代碼
-            display_name = lang_code
-            
-        languages.append((lang_code, display_name, lang_code))
+            bpy.context.preferences.view.language = original_lang
+        except:
+            pass
     
-    # 依照語系代碼排序
-    languages.sort(key=lambda x: x[0])
+    if not _cached_languages:
+        _cached_languages = [('en_US', 'English (US)', 'en_US')]
+
+
+def get_available_languages(self, context):
+    """Get all available languages from cache"""
+    global _cached_languages
     
-    return languages
+    # If cache is empty, build it now
+    if not _cached_languages:
+        build_language_cache()
+    
+    return _cached_languages
 
 
 class LANGSWITCH_OT_cycle_language(Operator):
@@ -315,9 +317,8 @@ def restore_keymap():
         try:
             kmi = km.keymap_items.new(
                 LANGSWITCH_OT_cycle_language.bl_idname,
-                type='T',
+                type='L',
                 value='PRESS',
-                alt=True,
                 ctrl=True,
                 shift=True
             )
@@ -374,6 +375,9 @@ def register():
     bpy.utils.register_class(LANGSWITCH_OT_cycle_language)
     bpy.utils.register_class(LANGSWITCH_OT_restore_keymap)
     bpy.utils.register_class(LANGSWITCH_Preferences)
+    
+    # Build language cache at registration time
+    build_language_cache()
     
     # Register keymap
     restore_keymap()
