@@ -27,6 +27,8 @@ i18n_dict = {
         'restore_keymap': "Restore Keymap",
         'keymap_restored': "Keymap restored! Please restart Blender to ensure it takes effect.",
         'switch_to': "Switched to language:",
+        'current_shortcut': "Current shortcut: {key}",
+        'shortcut_missing': "Missing (please refer to manual)",
     },
     'en_GB': {
         'cycle_count': "Cycle Count",
@@ -37,6 +39,8 @@ i18n_dict = {
         'restore_keymap': "Restore Keymap",
         'keymap_restored': "Keymap restored! Please restart Blender to ensure it takes effect.",
         'switch_to': "Switched to language:",
+        'current_shortcut': "Current shortcut: {key}",
+        'shortcut_missing': "Missing (please refer to manual)",
     },
     'zh_HANS': {
         'cycle_count': "循环切换数",
@@ -47,6 +51,8 @@ i18n_dict = {
         'restore_keymap': "恢复快捷键",
         'keymap_restored': "快捷键已恢复! 请重启 Blender 以确保生效。",
         'switch_to': "切换语系至:",
+        'current_shortcut': "当前快捷键: {key}",
+        'shortcut_missing': "遗失 (请查阅使用手册)",
     },
     'zh_HANT': {
         'cycle_count': "循環切換數",
@@ -57,6 +63,8 @@ i18n_dict = {
         'restore_keymap': "恢復快速鍵",
         'keymap_restored': "快速鍵已恢復! 請重啟 Blender 以確保生效。",
         'switch_to': "切換語系至:",
+        'current_shortcut': "當前快速鍵: {key}",
+        'shortcut_missing': "遺失 (請查閱使用手冊)",
     },
     'ja_JP': {
         'cycle_count': "循環切替数",
@@ -67,6 +75,8 @@ i18n_dict = {
         'restore_keymap': "キーマップを復元",
         'keymap_restored': "キーマップが復元されました! Blenderを再起動してください。",
         'switch_to': "言語を切り替えました:",
+        'current_shortcut': "現在のショートカット: {key}",
+        'shortcut_missing': "見つかりません (マニュアルを参照)",
     },
     'ko_KR': {
         'cycle_count': "순환 전환 수",
@@ -77,6 +87,8 @@ i18n_dict = {
         'restore_keymap': "키맵 복원",
         'keymap_restored': "키맵이 복원되었습니다! Blender를 재시작하세요.",
         'switch_to': "언어 전환:",
+        'current_shortcut': "현재 단축키: {key}",
+        'shortcut_missing': "누락됨 (사용 설명서 참조)",
     },
     'fr_FR': {
         'cycle_count': "Nombre de cycles",
@@ -87,6 +99,8 @@ i18n_dict = {
         'restore_keymap': "Restaurer les raccourcis",
         'keymap_restored': "Raccourcis restaurés! Veuillez redémarrer Blender pour assurer la prise en compte.",
         'switch_to': "Langue changée:",
+        'current_shortcut': "Raccourci actuel: {key}",
+        'shortcut_missing': "Manquant (veuillez consulter le manuel)",
     },
     'de_DE': {
         'cycle_count': "Anzahl der Zyklen",
@@ -97,6 +111,8 @@ i18n_dict = {
         'restore_keymap': "Tastenbelegung wiederherstellen",
         'keymap_restored': "Tastenbelegung wiederhergestellt! Bitte starten Sie Blender neu.",
         'switch_to': "Sprache gewechselt zu:",
+        'current_shortcut': "Aktuelle Tastenkombination: {key}",
+        'shortcut_missing': "Fehlt (bitte Handbuch konsultieren)",
     },
     'es': {
         'cycle_count': "Número de ciclos",
@@ -107,6 +123,8 @@ i18n_dict = {
         'restore_keymap': "Restaurar atajos",
         'keymap_restored': "¡Atajos restaurados! Por favor reinicie Blender.",
         'switch_to': "Idioma cambiado a:",
+        'current_shortcut': "Atajo actual: {key}",
+        'shortcut_missing': "Falta (consulte el manual)",
     },
     'it_IT': {
         'cycle_count': "Numero di cicli",
@@ -117,6 +135,8 @@ i18n_dict = {
         'restore_keymap': "Ripristina scorciatoie",
         'keymap_restored': "Scorciatoie ripristinate! Riavvia Blender.",
         'switch_to': "Lingua cambiata in:",
+        'current_shortcut': "Scorciatoia attuale: {key}",
+        'shortcut_missing': "Mancante (consultare il manuale)",
     },
     'pt_PT': {
         'cycle_count': "Número de ciclos",
@@ -127,6 +147,8 @@ i18n_dict = {
         'restore_keymap': "Restaurar atalhos",
         'keymap_restored': "Atalhos restaurados! Reinicie o Blender.",
         'switch_to': "Idioma alterado para:",
+        'current_shortcut': "Atalho atual: {key}",
+        'shortcut_missing': "Em falta (consulte o manual)",
     },
     'pt_BR': {
         'cycle_count': "Número de ciclos",
@@ -137,6 +159,8 @@ i18n_dict = {
         'restore_keymap': "Restaurar atalhos",
         'keymap_restored': "Atalhos restaurados! Reinicie o Blender.",
         'switch_to': "Idioma alterado para:",
+        'current_shortcut': "Atalho atual: {key}",
+        'shortcut_missing': "Ausente (consulte o manual)",
     },
     'ru_RU': {
         'cycle_count': "Количество циклов",
@@ -147,6 +171,8 @@ i18n_dict = {
         'restore_keymap': "Восстановить горячие клавиши",
         'keymap_restored': "Горячие клавиши восстановлены! Перезапустите Blender.",
         'switch_to': "Язык изменен на:",
+        'current_shortcut': "Текущая горячая клавиша: {key}",
+        'shortcut_missing': "Отсутствует (см. руководство)",
     },
     'pl_PL': {
         'cycle_count': "Liczba cykli",
@@ -157,6 +183,8 @@ i18n_dict = {
         'restore_keymap': "Przywróć skróty",
         'keymap_restored': "Skróty przywrócone! Uruchom ponownie Blender.",
         'switch_to': "Język zmieniony na:",
+        'current_shortcut': "Bieżący skrót: {key}",
+        'shortcut_missing': "Brak (zobacz instrukcję)",
     },
     'nl_NL': {
         'cycle_count': "Aantal cycli",
@@ -167,6 +195,8 @@ i18n_dict = {
         'restore_keymap': "Sneltoetsen herstellen",
         'keymap_restored': "Sneltoetsen hersteld! Start Blender opnieuw op.",
         'switch_to': "Taal gewijzigd naar:",
+        'current_shortcut': "Huidige sneltoets: {key}",
+        'shortcut_missing': "Ontbreekt (raadpleeg handleiding)",
     },
     'sv_SE': {
         'cycle_count': "Antal cykler",
@@ -177,6 +207,8 @@ i18n_dict = {
         'restore_keymap': "Återställ genvägar",
         'keymap_restored': "Genvägar återställda! Starta om Blender.",
         'switch_to': "Språk bytt till:",
+        'current_shortcut': "Nuvarande genväg: {key}",
+        'shortcut_missing': "Saknas (se manual)",
     },
     'cs_CZ': {
         'cycle_count': "Počet cyklů",
@@ -187,6 +219,8 @@ i18n_dict = {
         'restore_keymap': "Obnovit klávesové zkratky",
         'keymap_restored': "Klávesové zkratky obnoveny! Restartujte Blender.",
         'switch_to': "Jazyk změněn na:",
+        'current_shortcut': "Aktuální zkratka: {key}",
+        'shortcut_missing': "Chybí (viz manuál)",
     },
     'tr_TR': {
         'cycle_count': "Döngü sayısı",
@@ -197,6 +231,8 @@ i18n_dict = {
         'restore_keymap': "Kısayolları geri yükle",
         'keymap_restored': "Kısayollar geri yüklendi! Blender'ı yeniden başlatın.",
         'switch_to': "Dil değiştirildi:",
+        'current_shortcut': "Mevcut kısayol: {key}",
+        'shortcut_missing': "Eksik (kılavuza bakın)",
     },
     'ar_EG': {
         'cycle_count': "عدد الدورات",
@@ -207,6 +243,8 @@ i18n_dict = {
         'restore_keymap': "استعادة الاختصارات",
         'keymap_restored': "تم استعادة الاختصارات! يرجى إعادة تشغيل Blender.",
         'switch_to': "تم تغيير اللغة إلى:",
+        'current_shortcut': "الاختصار الحالي: {key}",
+        'shortcut_missing': "مفقود (يرجى الرجوع إلى الدليل)",
     },
     'he_IL': {
         'cycle_count': "מספר מחזורים",
@@ -217,6 +255,8 @@ i18n_dict = {
         'restore_keymap': "שחזר קיצורי דרך",
         'keymap_restored': "קיצורי דרך שוחזרו! אנא הפעל מחדש את Blender.",
         'switch_to': "שפה שונתה ל:",
+        'current_shortcut': "קיצור דרך נוכחי: {key}",
+        'shortcut_missing': "חסר (עיין במדריך)",
     },
     'th_TH': {
         'cycle_count': "จำนวนรอบ",
@@ -227,6 +267,8 @@ i18n_dict = {
         'restore_keymap': "คืนค่าทางลัด",
         'keymap_restored': "คืนค่าทางลัดแล้ว! กรุณารีสตาร์ท Blender",
         'switch_to': "เปลี่ยนภาษาเป็น:",
+        'current_shortcut': "ทางลัดปัจจุบัน: {key}",
+        'shortcut_missing': "หายไป (โปรดดูคู่มือ)",
     },
     'uk_UA': {
         'cycle_count': "Кількість циклів",
@@ -237,6 +279,8 @@ i18n_dict = {
         'restore_keymap': "Відновити гарячі клавіші",
         'keymap_restored': "Гарячі клавіші відновлено! Перезапустіть Blender.",
         'switch_to': "Мову змінено на:",
+        'current_shortcut': "Поточна гаряча клавіша: {key}",
+        'shortcut_missing': "Відсутня (див. посібник)",
     },
     'vi_VN': {
         'cycle_count': "Số chu kỳ",
@@ -247,6 +291,8 @@ i18n_dict = {
         'restore_keymap': "Khôi phục phím tắt",
         'keymap_restored': "Đã khôi phục phím tắt! Vui lòng khởi động lại Blender.",
         'switch_to': "Đã chuyển ngôn ngữ sang:",
+        'current_shortcut': "Phím tắt hiện tại: {key}",
+        'shortcut_missing': "Thiếu (vui lòng xem hướng dẫn)",
     },
     'id_ID': {
         'cycle_count': "Jumlah siklus",
@@ -257,6 +303,8 @@ i18n_dict = {
         'restore_keymap': "Pulihkan pintasan",
         'keymap_restored': "Pintasan dipulihkan! Silakan restart Blender.",
         'switch_to': "Bahasa diubah ke:",
+        'current_shortcut': "Pintasan saat ini: {key}",
+        'shortcut_missing': "Hilang (silakan lihat manual)",
     },
     'hi_IN': {
         'cycle_count': "चक्र की संख्या",
@@ -267,6 +315,8 @@ i18n_dict = {
         'restore_keymap': "शॉर्टकट पुनर्स्थापित करें",
         'keymap_restored': "शॉर्टकट पुनर्स्थापित किए गए! कृपया Blender को पुनरारंभ करें।",
         'switch_to': "भाषा बदली गई:",
+        'current_shortcut': "वर्तमान शॉर्टकट: {key}",
+        'shortcut_missing': "गायब (कृपया मैनुअल देखें)",
     },
 }
 
@@ -284,6 +334,42 @@ def get_text(key, lang=None):
         lang = 'en_US'
     
     return i18n_dict[lang].get(key, i18n_dict['en_US'].get(key, key))
+
+
+def get_current_keymap_string():
+    """Get current keymap as a human-readable string, or missing message"""
+    try:
+        wm = bpy.context.window_manager
+        kc = wm.keyconfigs.addon
+        
+        if kc:
+            # Search for our keymap item
+            for km in kc.keymaps:
+                if km.name == 'Window' and km.space_type == 'EMPTY':
+                    for kmi in km.keymap_items:
+                        if kmi.idname == LANGSWITCH_OT_cycle_language.bl_idname:
+                            # Found it! Build the key string
+                            key_parts = []
+                            if kmi.ctrl:
+                                key_parts.append("Ctrl")
+                            if kmi.alt:
+                                key_parts.append("Alt")
+                            if kmi.shift:
+                                key_parts.append("Shift")
+                            if kmi.oskey:
+                                key_parts.append("Cmd")
+                            
+                            # Add the main key
+                            key_parts.append(kmi.type)
+                            
+                            return "+".join(key_parts)
+        
+        # Not found
+        return None
+        
+    except Exception as e:
+        print(f"Error getting keymap: {e}")
+        return None
 
 
 # Global cache for language list
@@ -453,6 +539,17 @@ class LANGSWITCH_Preferences(AddonPreferences):
         
         layout.separator()
         layout.label(text=get_text('shortcut_hint', current_lang))
+        
+        # Display current keymap status
+        layout.separator()
+        keymap_str = get_current_keymap_string()
+        if keymap_str:
+            # Keymap found - display it
+            status_text = get_text('current_shortcut', current_lang).format(key=keymap_str)
+            layout.label(text=status_text, icon='KEYINGSET')
+        else:
+            # Keymap missing
+            layout.label(text=get_text('shortcut_missing', current_lang), icon='ERROR')
 
 
 class LANGSWITCH_OT_restore_keymap(Operator):
@@ -507,9 +604,8 @@ def restore_keymap():
         try:
             kmi = km.keymap_items.new(
                 LANGSWITCH_OT_cycle_language.bl_idname,
-                type='T',
+                type='L',
                 value='PRESS',
-                alt=True,
                 ctrl=True,
                 shift=True
             )
@@ -570,26 +666,26 @@ def register():
     # Build language cache at registration time
     build_language_cache()
     
-    # Register keymap
-    restore_keymap()
-    
-    # Register load post handler
-    if load_post_handler not in bpy.app.handlers.load_post:
-        bpy.app.handlers.load_post.append(load_post_handler)
+    # Register keymap - simple version
+    wm = bpy.context.window_manager
+    kc = wm.keyconfigs.addon
+    if kc:
+        km = kc.keymaps.new(name='Window', space_type='EMPTY')
+        kmi = km.keymap_items.new(
+            LANGSWITCH_OT_cycle_language.bl_idname,
+            type='T',
+            value='PRESS',
+            alt=True,
+            ctrl=True,
+            shift=True
+        )
+        addon_keymaps.append((km, kmi))
 
 
 def unregister():
-    # Remove load post handler
-    if load_post_handler in bpy.app.handlers.load_post:
-        bpy.app.handlers.load_post.remove(load_post_handler)
-    
-    # Remove keymap
+    # Remove keymap - simple version
     for km, kmi in addon_keymaps:
-        try:
-            km.keymap_items.remove(kmi)
-        except:
-            pass
-    
+        km.keymap_items.remove(kmi)
     addon_keymaps.clear()
     
     bpy.utils.unregister_class(LANGSWITCH_Preferences)
