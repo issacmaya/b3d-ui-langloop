@@ -2,8 +2,8 @@
 
 bl_info = {
     "name": "b3d-ui-langloop",
-    "author": "Yusang / issac",
-    "version": (1, 0, 1),
+    "author": "柚桑 / issac",
+    "version": (1, 0, 0),
     "blender": (5, 0, 0),
     "location": "Edit > Preferences > Add-ons",
     "description": "Quick language switching for Blender interface",
@@ -24,10 +24,8 @@ i18n_dict = {
         'language': "Language",
         'select_languages': "Select languages to cycle:",
         'shortcut_hint': "Shortcut settings: Edit > Preferences > Keymap > Search 'b3d-ui-langloop'",
-        'restore_keymap': "Restore Keymap",
-        'keymap_restored': "Keymap restored! Please restart Blender to ensure it takes effect.",
         'switch_to': "Switched to language:",
-        'current_shortcut': "Current shortcut: {key} (Reopen preferences if changed)",
+        'current_shortcut': "Current shortcut: {key}",
         'shortcut_missing': "Missing (please refer to manual)",
     },
     'en_GB': {
@@ -36,10 +34,8 @@ i18n_dict = {
         'language': "Language",
         'select_languages': "Select languages to cycle:",
         'shortcut_hint': "Shortcut settings: Edit > Preferences > Keymap > Search 'b3d-ui-langloop'",
-        'restore_keymap': "Restore Keymap",
-        'keymap_restored': "Keymap restored! Please restart Blender to ensure it takes effect.",
         'switch_to': "Switched to language:",
-        'current_shortcut': "Current shortcut: {key} (Reopen preferences if changed)",
+        'current_shortcut': "Current shortcut: {key}",
         'shortcut_missing': "Missing (please refer to manual)",
     },
     'zh_HANS': {
@@ -48,10 +44,8 @@ i18n_dict = {
         'language': "语系",
         'select_languages': "选择要循环的语系:",
         'shortcut_hint': "快捷键设置: 编辑 > 偏好设定 > 快捷键 > 搜索 'b3d-ui-langloop'",
-        'restore_keymap': "恢复快捷键",
-        'keymap_restored': "快捷键已恢复! 请重启 Blender 以确保生效。",
         'switch_to': "切换语系至:",
-        'current_shortcut': "当前快捷键: {key} (若有更改请重开偏好设置面板)",
+        'current_shortcut': "当前快捷键: {key}",
         'shortcut_missing': "遗失 (请查阅使用手册)",
     },
     'zh_HANT': {
@@ -60,10 +54,8 @@ i18n_dict = {
         'language': "語系",
         'select_languages': "選擇要循環的語系:",
         'shortcut_hint': "快速鍵設定: 編輯 > 偏好設定 > 快速鍵 > 搜尋 'b3d-ui-langloop'",
-        'restore_keymap': "恢復快速鍵",
-        'keymap_restored': "快速鍵已恢復! 請重啟 Blender 以確保生效。",
         'switch_to': "切換語系至:",
-        'current_shortcut': "目前快速鍵: {key} (若有更改請重開偏好設定面板)",
+        'current_shortcut': "目前快速鍵: {key}",
         'shortcut_missing': "遺失 (請查閱使用手冊)",
     },
     'ja_JP': {
@@ -72,10 +64,8 @@ i18n_dict = {
         'language': "言語",
         'select_languages': "循環する言語を選択:",
         'shortcut_hint': "ショートカット設定: 編集 > プリファレンス > キーマップ > 'b3d-ui-langloop' を検索",
-        'restore_keymap': "キーマップを復元",
-        'keymap_restored': "キーマップが復元されました! Blenderを再起動してください。",
         'switch_to': "言語を切り替えました:",
-        'current_shortcut': "現在のショートカット: {key} (変更した場合は設定パネルを再開してください)",
+        'current_shortcut': "現在のショートカット: {key}",
         'shortcut_missing': "見つかりません (マニュアルを参照)",
     },
     'ko_KR': {
@@ -84,10 +74,8 @@ i18n_dict = {
         'language': "언어",
         'select_languages': "순환할 언어 선택:",
         'shortcut_hint': "단축키 설정: 편집 > 환경설정 > 키맵 > 'b3d-ui-langloop' 검색",
-        'restore_keymap': "키맵 복원",
-        'keymap_restored': "키맵이 복원되었습니다! Blender를 재시작하세요.",
         'switch_to': "언어 전환:",
-        'current_shortcut': "현재 단축키: {key} (변경 시 환경설정 패널을 다시 여세요)",
+        'current_shortcut': "현재 단축키: {key}",
         'shortcut_missing': "누락됨 (사용 설명서 참조)",
     },
     'fr_FR': {
@@ -96,10 +84,8 @@ i18n_dict = {
         'language': "Langue",
         'select_languages': "Sélectionnez les langues à parcourir:",
         'shortcut_hint': "Raccourcis clavier: Édition > Préférences > Raccourcis clavier > Rechercher 'b3d-ui-langloop'",
-        'restore_keymap': "Restaurer les raccourcis",
-        'keymap_restored': "Raccourcis restaurés! Veuillez redémarrer Blender pour assurer la prise en compte.",
         'switch_to': "Langue changée:",
-        'current_shortcut': "Raccourci actuel: {key} (Rouvrez les préférences si modifié)",
+        'current_shortcut': "Raccourci actuel: {key}",
         'shortcut_missing': "Manquant (veuillez consulter le manuel)",
     },
     'de_DE': {
@@ -108,10 +94,8 @@ i18n_dict = {
         'language': "Sprache",
         'select_languages': "Wählen Sie Sprachen zum Durchlaufen:",
         'shortcut_hint': "Tastenkombinationen: Bearbeiten > Einstellungen > Tastenbelegung > 'b3d-ui-langloop' suchen",
-        'restore_keymap': "Tastenbelegung wiederherstellen",
-        'keymap_restored': "Tastenbelegung wiederhergestellt! Bitte starten Sie Blender neu.",
         'switch_to': "Sprache gewechselt zu:",
-        'current_shortcut': "Aktuelle Tastenkombination: {key} (Bei Änderung Einstellungen neu öffnen)",
+        'current_shortcut': "Aktuelle Tastenkombination: {key}",
         'shortcut_missing': "Fehlt (bitte Handbuch konsultieren)",
     },
     'es': {
@@ -120,10 +104,8 @@ i18n_dict = {
         'language': "Idioma",
         'select_languages': "Seleccione idiomas para recorrer:",
         'shortcut_hint': "Configuración de atajos: Editar > Preferencias > Atajos de teclado > Buscar 'b3d-ui-langloop'",
-        'restore_keymap': "Restaurar atajos",
-        'keymap_restored': "¡Atajos restaurados! Por favor reinicie Blender.",
         'switch_to': "Idioma cambiado a:",
-        'current_shortcut': "Atajo actual: {key} (Reabrir preferencias si cambia)",
+        'current_shortcut': "Atajo actual: {key}",
         'shortcut_missing': "Falta (consulte el manual)",
     },
     'it_IT': {
@@ -132,10 +114,8 @@ i18n_dict = {
         'language': "Lingua",
         'select_languages': "Seleziona le lingue da scorrere:",
         'shortcut_hint': "Impostazioni scorciatoie: Modifica > Preferenze > Scorciatoie > Cerca 'b3d-ui-langloop'",
-        'restore_keymap': "Ripristina scorciatoie",
-        'keymap_restored': "Scorciatoie ripristinate! Riavvia Blender.",
         'switch_to': "Lingua cambiata in:",
-        'current_shortcut': "Scorciatoia attuale: {key} (Riapri preferenze se modificata)",
+        'current_shortcut': "Scorciatoia attuale: {key}",
         'shortcut_missing': "Mancante (consultare il manuale)",
     },
     'pt_PT': {
@@ -144,10 +124,8 @@ i18n_dict = {
         'language': "Idioma",
         'select_languages': "Selecione idiomas para percorrer:",
         'shortcut_hint': "Configurações de atalhos: Editar > Preferências > Atalhos > Pesquisar 'b3d-ui-langloop'",
-        'restore_keymap': "Restaurar atalhos",
-        'keymap_restored': "Atalhos restaurados! Reinicie o Blender.",
         'switch_to': "Idioma alterado para:",
-        'current_shortcut': "Atalho atual: {key} (Reabrir preferências se alterado)",
+        'current_shortcut': "Atalho atual: {key}",
         'shortcut_missing': "Em falta (consulte o manual)",
     },
     'pt_BR': {
@@ -156,10 +134,8 @@ i18n_dict = {
         'language': "Idioma",
         'select_languages': "Selecione idiomas para percorrer:",
         'shortcut_hint': "Configurações de atalhos: Editar > Preferências > Atalhos > Pesquisar 'b3d-ui-langloop'",
-        'restore_keymap': "Restaurar atalhos",
-        'keymap_restored': "Atalhos restaurados! Reinicie o Blender.",
         'switch_to': "Idioma alterado para:",
-        'current_shortcut': "Atalho atual: {key} (Reabrir preferências se alterado)",
+        'current_shortcut': "Atalho atual: {key}",
         'shortcut_missing': "Ausente (consulte o manual)",
     },
     'ru_RU': {
@@ -168,10 +144,8 @@ i18n_dict = {
         'language': "Язык",
         'select_languages': "Выберите языки для переключения:",
         'shortcut_hint': "Настройки горячих клавиш: Правка > Настройки > Горячие клавиши > Найти 'b3d-ui-langloop'",
-        'restore_keymap': "Восстановить горячие клавиши",
-        'keymap_restored': "Горячие клавиши восстановлены! Перезапустите Blender.",
         'switch_to': "Язык изменен на:",
-        'current_shortcut': "Текущая горячая клавиша: {key} (переоткройте настройки при изменении)",
+        'current_shortcut': "Текущая горячая клавиша: {key}",
         'shortcut_missing': "Отсутствует (см. руководство)",
     },
     'pl_PL': {
@@ -180,10 +154,8 @@ i18n_dict = {
         'language': "Język",
         'select_languages': "Wybierz języki do przełączania:",
         'shortcut_hint': "Ustawienia skrótów: Edycja > Preferencje > Skróty klawiszowe > Szukaj 'b3d-ui-langloop'",
-        'restore_keymap': "Przywróć skróty",
-        'keymap_restored': "Skróty przywrócone! Uruchom ponownie Blender.",
         'switch_to': "Język zmieniony na:",
-        'current_shortcut': "Bieżący skrót: {key} (Otwórz ponownie preferencje po zmianie)",
+        'current_shortcut': "Bieżący skrót: {key}",
         'shortcut_missing': "Brak (zobacz instrukcję)",
     },
     'nl_NL': {
@@ -192,10 +164,8 @@ i18n_dict = {
         'language': "Taal",
         'select_languages': "Selecteer talen om door te bladeren:",
         'shortcut_hint': "Sneltoets instellingen: Bewerken > Voorkeuren > Sneltoetsen > Zoek 'b3d-ui-langloop'",
-        'restore_keymap': "Sneltoetsen herstellen",
-        'keymap_restored': "Sneltoetsen hersteld! Start Blender opnieuw op.",
         'switch_to': "Taal gewijzigd naar:",
-        'current_shortcut': "Huidige sneltoets: {key} (Heropen voorkeuren bij wijziging)",
+        'current_shortcut': "Huidige sneltoets: {key}",
         'shortcut_missing': "Ontbreekt (raadpleeg handleiding)",
     },
     'sv_SE': {
@@ -204,10 +174,8 @@ i18n_dict = {
         'language': "Språk",
         'select_languages': "Välj språk att växla mellan:",
         'shortcut_hint': "Genvägar: Redigera > Inställningar > Tangentbindningar > Sök 'b3d-ui-langloop'",
-        'restore_keymap': "Återställ genvägar",
-        'keymap_restored': "Genvägar återställda! Starta om Blender.",
         'switch_to': "Språk bytt till:",
-        'current_shortcut': "Nuvarande genväg: {key} (Öppna inställningar igen vid ändring)",
+        'current_shortcut': "Nuvarande genväg: {key}",
         'shortcut_missing': "Saknas (se manual)",
     },
     'cs_CZ': {
@@ -216,10 +184,8 @@ i18n_dict = {
         'language': "Jazyk",
         'select_languages': "Vyberte jazyky k procházení:",
         'shortcut_hint': "Nastavení klávesových zkratek: Upravit > Předvolby > Klávesové zkratky > Hledat 'b3d-ui-langloop'",
-        'restore_keymap': "Obnovit klávesové zkratky",
-        'keymap_restored': "Klávesové zkratky obnoveny! Restartujte Blender.",
         'switch_to': "Jazyk změněn na:",
-        'current_shortcut': "Aktuální zkratka: {key} (Při změně znovu otevřete předvolby)",
+        'current_shortcut': "Aktuální zkratka: {key}",
         'shortcut_missing': "Chybí (viz manuál)",
     },
     'tr_TR': {
@@ -228,10 +194,8 @@ i18n_dict = {
         'language': "Dil",
         'select_languages': "Geçiş yapılacak dilleri seçin:",
         'shortcut_hint': "Kısayol ayarları: Düzenle > Tercihler > Tuş atamaları > 'b3d-ui-langloop' ara",
-        'restore_keymap': "Kısayolları geri yükle",
-        'keymap_restored': "Kısayollar geri yüklendi! Blender'ı yeniden başlatın.",
         'switch_to': "Dil değiştirildi:",
-        'current_shortcut': "Mevcut kısayol: {key} (Değişirse tercihleri yeniden açın)",
+        'current_shortcut': "Mevcut kısayol: {key}",
         'shortcut_missing': "Eksik (kılavuza bakın)",
     },
     'ar_EG': {
@@ -240,10 +204,8 @@ i18n_dict = {
         'language': "اللغة",
         'select_languages': "اختر اللغات للتبديل بينها:",
         'shortcut_hint': "إعدادات الاختصارات: تحرير > التفضيلات > اختصارات لوحة المفاتيح > ابحث عن 'b3d-ui-langloop'",
-        'restore_keymap': "استعادة الاختصارات",
-        'keymap_restored': "تم استعادة الاختصارات! يرجى إعادة تشغيل Blender.",
         'switch_to': "تم تغيير اللغة إلى:",
-        'current_shortcut': "الاختصار الحالي: {key} (أعد فتح التفضيلات إذا تغير)",
+        'current_shortcut': "الاختصار الحالي: {key}",
         'shortcut_missing': "مفقود (يرجى الرجوع إلى الدليل)",
     },
     'he_IL': {
@@ -252,10 +214,8 @@ i18n_dict = {
         'language': "שפה",
         'select_languages': "בחר שפות למעבר ביניהן:",
         'shortcut_hint': "הגדרות קיצורי דרך: עריכה > העדפות > מקשי קיצור > חפש 'b3d-ui-langloop'",
-        'restore_keymap': "שחזר קיצורי דרך",
-        'keymap_restored': "קיצורי דרך שוחזרו! אנא הפעל מחדש את Blender.",
         'switch_to': "שפה שונתה ל:",
-        'current_shortcut': "קיצור דרך נוכחי: {key} (פתח מחדש העדפות אם שונה)",
+        'current_shortcut': "קיצור דרך נוכחי: {key}",
         'shortcut_missing': "חסר (עיין במדריך)",
     },
     'th_TH': {
@@ -264,10 +224,8 @@ i18n_dict = {
         'language': "ภาษา",
         'select_languages': "เลือกภาษาที่จะสลับ:",
         'shortcut_hint': "การตั้งค่าทางลัด: แก้ไข > การตั้งค่า > แป้นพิมพ์ลัด > ค้นหา 'b3d-ui-langloop'",
-        'restore_keymap': "คืนค่าทางลัด",
-        'keymap_restored': "คืนค่าทางลัดแล้ว! กรุณารีสตาร์ท Blender",
         'switch_to': "เปลี่ยนภาษาเป็น:",
-        'current_shortcut': "ทางลัดปัจจุบัน: {key} (หากเปลี่ยนให้เปิดหน้าต่างการตั้งค่าใหม่)",
+        'current_shortcut': "ทางลัดปัจจุบัน: {key}",
         'shortcut_missing': "หายไป (โปรดดูคู่มือ)",
     },
     'uk_UA': {
@@ -276,10 +234,8 @@ i18n_dict = {
         'language': "Мова",
         'select_languages': "Виберіть мови для перемикання:",
         'shortcut_hint': "Налаштування гарячих клавіш: Правка > Налаштування > Гарячі клавіші > Знайти 'b3d-ui-langloop'",
-        'restore_keymap': "Відновити гарячі клавіші",
-        'keymap_restored': "Гарячі клавіші відновлено! Перезапустіть Blender.",
         'switch_to': "Мову змінено на:",
-        'current_shortcut': "Поточна гаряча клавіша: {key} (перевідкрийте налаштування при зміні)",
+        'current_shortcut': "Поточна гаряча клавіша: {key}",
         'shortcut_missing': "Відсутня (див. посібник)",
     },
     'vi_VN': {
@@ -288,10 +244,8 @@ i18n_dict = {
         'language': "Ngôn ngữ",
         'select_languages': "Chọn ngôn ngữ để chuyển đổi:",
         'shortcut_hint': "Cài đặt phím tắt: Chỉnh sửa > Tùy chọn > Phím tắt > Tìm kiếm 'b3d-ui-langloop'",
-        'restore_keymap': "Khôi phục phím tắt",
-        'keymap_restored': "Đã khôi phục phím tắt! Vui lòng khởi động lại Blender.",
         'switch_to': "Đã chuyển ngôn ngữ sang:",
-        'current_shortcut': "Phím tắt hiện tại: {key} (Mở lại tùy chọn nếu thay đổi)",
+        'current_shortcut': "Phím tắt hiện tại: {key}",
         'shortcut_missing': "Thiếu (vui lòng xem hướng dẫn)",
     },
     'id_ID': {
@@ -300,10 +254,8 @@ i18n_dict = {
         'language': "Bahasa",
         'select_languages': "Pilih bahasa untuk berpindah:",
         'shortcut_hint': "Pengaturan pintasan: Edit > Preferensi > Pemetaan Kunci > Cari 'b3d-ui-langloop'",
-        'restore_keymap': "Pulihkan pintasan",
-        'keymap_restored': "Pintasan dipulihkan! Silakan restart Blender.",
         'switch_to': "Bahasa diubah ke:",
-        'current_shortcut': "Pintasan saat ini: {key} (Buka kembali preferensi jika diubah)",
+        'current_shortcut': "Pintasan saat ini: {key}",
         'shortcut_missing': "Hilang (silakan lihat manual)",
     },
     'hi_IN': {
@@ -312,14 +264,11 @@ i18n_dict = {
         'language': "भाषा",
         'select_languages': "स्विच करने के लिए भाषाएँ चुनें:",
         'shortcut_hint': "शॉर्टकट सेटिंग्स: संपादित करें > प्राथमिकताएं > कीमैप > 'b3d-ui-langloop' खोजें",
-        'restore_keymap': "शॉर्टकट पुनर्स्थापित करें",
-        'keymap_restored': "शॉर्टकट पुनर्स्थापित किए गए! कृपया Blender को पुनरारंभ करें।",
         'switch_to': "भाषा बदली गई:",
-        'current_shortcut': "वर्तमान शॉर्टकट: {key} (बदलने पर प्राथमिकताएं फिर से खोलें)",
+        'current_shortcut': "वर्तमान शॉर्टकट: {key}",
         'shortcut_missing': "गायब (कृपया मैनुअल देखें)",
     },
 }
-
 
 def get_text(key, lang=None):
     """Get translated text based on current language"""
@@ -421,6 +370,41 @@ def get_available_languages(self, context):
         build_language_cache()
     
     return _cached_languages
+
+
+class LANGSWITCH_OT_add_language(Operator):
+    """Add a language slot"""
+    bl_idname = "langswitch.add_language"
+    bl_label = "Add Language"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        prefs = context.preferences.addons[__name__].preferences
+        if prefs.cycle_count < 10:
+            prefs.cycle_count += 1
+        return {'FINISHED'}
+
+
+class LANGSWITCH_OT_remove_language(Operator):
+    """Remove a language slot"""
+    bl_idname = "langswitch.remove_language"
+    bl_label = "Remove Language"
+    bl_options = {'REGISTER', 'UNDO'}
+    
+    index: IntProperty()
+
+    def execute(self, context):
+        prefs = context.preferences.addons[__name__].preferences
+        if prefs.cycle_count > 2 and self.index >= 2:
+            # Shift languages down to fill the gap
+            for i in range(self.index, prefs.cycle_count - 1):
+                lang_attr_current = f"language_{i}"
+                lang_attr_next = f"language_{i + 1}"
+                setattr(prefs, lang_attr_current, getattr(prefs, lang_attr_next))
+            
+            # Decrease count
+            prefs.cycle_count -= 1
+        return {'FINISHED'}
 
 
 class LANGSWITCH_OT_cycle_language(Operator):
@@ -529,16 +513,29 @@ class LANGSWITCH_Preferences(AddonPreferences):
         layout = self.layout
         current_lang = context.preferences.view.language
         
-        # Cycle count setting
-        layout.prop(self, "cycle_count", text=get_text('cycle_count', current_lang))
-        
         layout.separator()
         layout.label(text=get_text('select_languages', current_lang))
         
-        # Display language selection fields based on cycle_count
+        # Display language selection fields with remove buttons
         box = layout.box()
         for i in range(self.cycle_count):
-            box.prop(self, f"language_{i}", text=f"{get_text('language', current_lang)} {i+1}")
+            row = box.row(align=True)
+            
+            # Remove button column
+            btn_col = row.column(align=True)
+            if i < 2:
+                # Disable for first two languages
+                btn_col.enabled = False
+            remove_op = btn_col.operator("langswitch.remove_language", text="", icon='REMOVE')
+            remove_op.index = i
+            
+            # Language selection dropdown
+            row.prop(self, f"language_{i}", text=f"{get_text('language', current_lang)} {i+1}")
+        
+        # Add button (only show if less than 10 languages)
+        if self.cycle_count < 10:
+            row = box.row()
+            row.operator("langswitch.add_language", text="", icon='ADD')
         
         layout.separator()
         layout.label(text=get_text('shortcut_hint', current_lang))
@@ -555,7 +552,17 @@ class LANGSWITCH_Preferences(AddonPreferences):
             layout.label(text=get_text('shortcut_missing', current_lang), icon='ERROR')
 
 
-
+class LANGSWITCH_OT_restore_keymap(Operator):
+    """Restore default keymap (requires Blender restart)"""
+    bl_idname = "langswitch.restore_keymap"
+    bl_label = "Restore Keymap"
+    bl_options = {'REGISTER'}
+    
+    def execute(self, context):
+        restore_keymap()
+        current_lang = context.preferences.view.language
+        self.report({'WARNING'}, get_text('keymap_restored', current_lang))
+        return {'FINISHED'}
 
 
 # Keymap storage
@@ -652,8 +659,9 @@ def check_and_restore_keymap():
 
 
 def register():
+    bpy.utils.register_class(LANGSWITCH_OT_add_language)
+    bpy.utils.register_class(LANGSWITCH_OT_remove_language)
     bpy.utils.register_class(LANGSWITCH_OT_cycle_language)
-    
     bpy.utils.register_class(LANGSWITCH_Preferences)
     
     # Build language cache at registration time
@@ -668,8 +676,8 @@ def register():
             LANGSWITCH_OT_cycle_language.bl_idname,
             type='T',
             value='PRESS',
-            alt=True,
             ctrl=True,
+            alt=True,
             shift=True
         )
         addon_keymaps.append((km, kmi))
@@ -682,8 +690,9 @@ def unregister():
     addon_keymaps.clear()
     
     bpy.utils.unregister_class(LANGSWITCH_Preferences)
-   
     bpy.utils.unregister_class(LANGSWITCH_OT_cycle_language)
+    bpy.utils.unregister_class(LANGSWITCH_OT_remove_language)
+    bpy.utils.unregister_class(LANGSWITCH_OT_add_language)
 
 
 if __name__ == "__main__":
