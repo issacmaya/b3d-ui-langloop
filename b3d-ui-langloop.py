@@ -523,19 +523,26 @@ class LANGSWITCH_Preferences(AddonPreferences):
             
             # Remove button column
             btn_col = row.column(align=True)
+            # btn_col.scale_x = 0.9
+            # btn_col.scale_y = 0.9
             if i < 2:
                 # Disable for first two languages
                 btn_col.enabled = False
             remove_op = btn_col.operator("langswitch.remove_language", text="", icon='REMOVE')
             remove_op.index = i
             
+            space = "\u3000"
+
             # Language selection dropdown
-            row.prop(self, f"language_{i}", text=f"{get_text('language', current_lang)} {i+1}")
+            row.prop(self, f"language_{i}", text=f"{space}{get_text('language', current_lang)} {i+1} ")
         
         # Add button (only show if less than 10 languages)
         if self.cycle_count < 10:
             row = box.row()
             row.operator("langswitch.add_language", text="", icon='ADD')
+            add_col = row.column(align=True)
+            add_col.scale_x = 0.8
+            add_col.scale_y = 0.8
         
         layout.separator()
         layout.label(text=get_text('shortcut_hint', current_lang))
