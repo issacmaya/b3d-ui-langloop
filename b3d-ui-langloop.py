@@ -2,7 +2,7 @@
 
 bl_info = {
     "name": "b3d-ui-langloop",
-    "author": "柚桑 / issac",
+    "author": "楊景貴 / 柚桑 / issac",
     "version": (1, 0, 0),
     "blender": (5, 0, 0),
     "location": "Edit > Preferences > Add-ons",
@@ -522,7 +522,7 @@ class LANGSWITCH_Preferences(AddonPreferences):
             row = box.row(align=True)
             
             # Remove button column
-            btn_col = row.column(align=True)
+            btn_col = row.column(align=False)
             # btn_col.scale_x = 0.9
             # btn_col.scale_y = 0.9
             if i < 2:
@@ -531,7 +531,7 @@ class LANGSWITCH_Preferences(AddonPreferences):
             remove_op = btn_col.operator("langswitch.remove_language", text="", icon='REMOVE')
             remove_op.index = i
             
-            space = "\u3000"
+            space = "\u0020"
 
             # Language selection dropdown
             row.prop(self, f"language_{i}", text=f"{space}{get_text('language', current_lang)} {i+1} ")
