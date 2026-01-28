@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
+
 import bpy
 from bpy.types import Operator, AddonPreferences
 from bpy.props import IntProperty, EnumProperty
 from bpy.app.handlers import persistent
-
-# ------------------------------------------------------------------------
-# Add-on Info (kept for backward compatibility)
-# ------------------------------------------------------------------------
 
 bl_info = {
     "name": "B3D UI Language Loop",
@@ -18,10 +15,6 @@ bl_info = {
     "description": "Quick language switching for Blender interface",
     "category": "Interface",
 }
-
-# ------------------------------------------------------------------------
-# Internationalization Dictionary
-# ------------------------------------------------------------------------
 
 i18n_dict = {
     'en_US': {
@@ -189,7 +182,7 @@ i18n_dict = {
         'cycle_count_desc': "Počet jazyků k procházení",
         'language': "Jazyk",
         'select_languages': "Vyberte jazyky k procházení:",
-        'shortcut_hint': "Nastavení klávesových zkratek: Upravit > Předvolby > Klávesové zkratky > Hledat 'b3d-ui-langloop'",
+        'shortcut_hint': "Nastavení zkratek: Upravit > Předvolby > Klávesové zkratky > Hledat 'b3d-ui-langloop'",
         'switch_to': "Jazyk změněn na:",
         'current_shortcut': "Aktuální zkratka: {key}",
         'shortcut_missing': "Chybí (viz manuál)",
@@ -199,18 +192,18 @@ i18n_dict = {
         'cycle_count_desc': "Geçiş yapılacak dil sayısı",
         'language': "Dil",
         'select_languages': "Geçiş yapılacak dilleri seçin:",
-        'shortcut_hint': "Kısayol ayarları: Düzenle > Tercihler > Tuş atamaları > 'b3d-ui-langloop' ara",
+        'shortcut_hint': "Kısayol ayarları: Düzenle > Tercihler > Tuş Haritalama > 'b3d-ui-langloop' ara",
         'switch_to': "Dil değiştirildi:",
         'current_shortcut': "Mevcut kısayol: {key}",
-        'shortcut_missing': "Eksik (kılavuza bakın)",
+        'shortcut_missing': "Eksik (lütfen kılavuza bakın)",
     },
     'ar_EG': {
         'cycle_count': "عدد الدورات",
         'cycle_count_desc': "عدد اللغات للتبديل بينها",
         'language': "اللغة",
-        'select_languages': "اختر اللغات للتبديل بينها:",
-        'shortcut_hint': "إعدادات الاختصارات: تحرير > التفضيلات > اختصارات لوحة المفاتيح > ابحث عن 'b3d-ui-langloop'",
-        'switch_to': "تم تغيير اللغة إلى:",
+        'select_languages': "حدد اللغات للتبديل بينها:",
+        'shortcut_hint': "إعدادات الاختصارات: تحرير > التفضيلات > خريطة المفاتيح > ابحث عن 'b3d-ui-langloop'",
+        'switch_to': "تم التبديل إلى اللغة:",
         'current_shortcut': "الاختصار الحالي: {key}",
         'shortcut_missing': "مفقود (يرجى الرجوع إلى الدليل)",
     },
@@ -278,84 +271,75 @@ i18n_dict = {
 
 def _(key: str) -> str:
     lang = bpy.context.preferences.view.language
-    return I18N.get(lang, I18N["en_US"]).get(key, I18N["en_US"].get(key, key))
+    return i18n_dict.get(lang, i18n_dict["en_US"]).get(key, i18n_dict["en_US"].get(key, key))
 
-# ------------------------------------------------------------------------
-# Language Utilities
-# ------------------------------------------------------------------------
 
 _language_cache = []
 
 def build_language_cache():
     global _language_cache
     _language_cache.clear()
-
     original_lang = bpy.context.preferences.view.language
+
     try:
         bpy.context.preferences.view.language = "en_US"
         enum_items = bpy.types.PreferencesView.bl_rna.properties["language"].enum_items
+
         for item in enum_items:
             _language_cache.append((item.identifier, item.name, item.identifier))
+
     finally:
         bpy.context.preferences.view.language = original_lang
 
 def available_languages(self, context):
+
     if not _language_cache:
         build_language_cache()
     return _language_cache
 
-# ------------------------------------------------------------------------
-# Preferences
-# ------------------------------------------------------------------------
 
 class B3D_LANGLOOP_Preferences(AddonPreferences):
-    bl_idname = __name__
-
-    cycle_count: IntProperty(
+    bl_idname = __package__
+    cycle_count= IntProperty(
         name=lambda _: _("cycle_count"),
         description=lambda _: _("cycle_count_desc"),
         default=2,
         min=2,
         max=10,
     )
-
-    language_0: EnumProperty(name="Language 1", items=available_languages)
-    language_1: EnumProperty(name="Language 2", items=available_languages)
-    language_2: EnumProperty(name="Language 3", items=available_languages)
-    language_3: EnumProperty(name="Language 4", items=available_languages)
-    language_4: EnumProperty(name="Language 5", items=available_languages)
-    language_5: EnumProperty(name="Language 6", items=available_languages)
-    language_6: EnumProperty(name="Language 7", items=available_languages)
-    language_7: EnumProperty(name="Language 8", items=available_languages)
-    language_8: EnumProperty(name="Language 9", items=available_languages)
-    language_9: EnumProperty(name="Language 10", items=available_languages)
+    language_0= EnumProperty(name="Language 1", items=available_languages)
+    language_1= EnumProperty(name="Language 2", items=available_languages)
+    language_2= EnumProperty(name="Language 3", items=available_languages)
+    language_3= EnumProperty(name="Language 4", items=available_languages)
+    language_4= EnumProperty(name="Language 5", items=available_languages)
+    language_5= EnumProperty(name="Language 6", items=available_languages)
+    language_6= EnumProperty(name="Language 7", items=available_languages)
+    language_7= EnumProperty(name="Language 8", items=available_languages)
+    language_8= EnumProperty(name="Language 9", items=available_languages)
+    language_9= EnumProperty(name="Language 10", items=available_languages)
 
     def draw(self, context):
         layout = self.layout
         layout.label(text=_("select_languages"))
-
         box = layout.box()
+
         for i in range(self.cycle_count):
             box.prop(self, f"language_{i}", text=f'{_("language")} {i + 1}')
-
         layout.separator()
         layout.label(text=_("shortcut_hint"))
-
-# ------------------------------------------------------------------------
-# Operator
-# ------------------------------------------------------------------------
 
 class B3D_LANGLOOP_OT_cycle(Operator):
     bl_idname = "b3d_langloop.cycle_language"
     bl_label = "Cycle UI Language"
 
     def execute(self, context):
-        prefs = context.preferences.addons[__name__].preferences
+        prefs = context.preferences.addons[__package__].preferences
         current = context.preferences.view.language
-
         languages = [
             getattr(prefs, f"language_{i}")
+
             for i in range(prefs.cycle_count)
+
             if getattr(prefs, f"language_{i}", None)
         ]
 
@@ -364,13 +348,9 @@ class B3D_LANGLOOP_OT_cycle(Operator):
 
         next_index = (languages.index(current) + 1) % len(languages) if current in languages else 0
         context.preferences.view.language = languages[next_index]
-
         self.report({"INFO"}, f"{_('switch_to')} {languages[next_index]}")
         return {"FINISHED"}
 
-# ------------------------------------------------------------------------
-# Registration
-# ------------------------------------------------------------------------
 
 classes = (
     B3D_LANGLOOP_Preferences,
@@ -380,13 +360,13 @@ classes = (
 addon_keymaps = []
 
 def register():
+
     for cls in classes:
         bpy.utils.register_class(cls)
-
     build_language_cache()
-
     wm = bpy.context.window_manager
     kc = wm.keyconfigs.addon
+
     if kc:
         km = kc.keymaps.new(name="Window", space_type="EMPTY")
         kmi = km.keymap_items.new(
@@ -400,6 +380,7 @@ def register():
         addon_keymaps.append((km, kmi))
 
 def unregister():
+
     for km, kmi in addon_keymaps:
         km.keymap_items.remove(kmi)
     addon_keymaps.clear()
