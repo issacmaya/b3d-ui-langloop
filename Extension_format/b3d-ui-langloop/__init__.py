@@ -369,17 +369,17 @@ class LANGSWITCH_OT_cycle_language(Operator):
 # ==================================================
 class LANGSWITCH_Preferences(AddonPreferences):
     bl_idname = __package__
-    cycle_count= IntProperty(name="Cycle Count", default=2, min=2, max=10)
-    language_0= EnumProperty(items=get_available_languages)
-    language_1= EnumProperty(items=get_available_languages)
-    language_2= EnumProperty(items=get_available_languages)
-    language_3= EnumProperty(items=get_available_languages)
-    language_4= EnumProperty(items=get_available_languages)
-    language_5= EnumProperty(items=get_available_languages)
-    language_6= EnumProperty(items=get_available_languages)
-    language_7= EnumProperty(items=get_available_languages)
-    language_8= EnumProperty(items=get_available_languages)
-    language_9= EnumProperty(items=get_available_languages)
+    cycle_count: IntProperty(name="Cycle Count", default=2, min=2, max=10)
+    language_0: EnumProperty(items=get_available_languages)
+    language_1: EnumProperty(items=get_available_languages)
+    language_2: EnumProperty(items=get_available_languages)
+    language_3: EnumProperty(items=get_available_languages)
+    language_4: EnumProperty(items=get_available_languages)
+    language_5: EnumProperty(items=get_available_languages)
+    language_6: EnumProperty(items=get_available_languages)
+    language_7: EnumProperty(items=get_available_languages)
+    language_8: EnumProperty(items=get_available_languages)
+    language_9: EnumProperty(items=get_available_languages)
 
     def draw(self, context):
         layout = self.layout
@@ -397,6 +397,7 @@ class LANGSWITCH_Preferences(AddonPreferences):
             # 維持你原本的空格設計
             space = "\u0020"
             row.prop(self, f"language_{i}", text=f"{space}{get_text('language', current_lang)} {i+1} ")
+
 
         if self.cycle_count < 10:
             row = box.row()
