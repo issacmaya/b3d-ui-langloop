@@ -1,57 +1,49 @@
 # -*- coding: utf-8 -*-
 
+
 import bpy
 from bpy.types import AddonPreferences, Operator
 from bpy.props import EnumProperty, IntProperty
 
-# ==================================================
-# 核心修正：使用與原版一致的 Cache 機制與路徑獲取
-# ==================================================
-
-# 在新版 Extension 架構中，這能確保 Preferences 讀寫正確
 def get_prefs():
     return bpy.context.preferences.addons[__package__].preferences
 
-# 全域快取清單，防止 UI 渲染時文字損壞
+
 _cached_languages = []
 
 def build_language_cache():
-    """嚴格參考原版實作：切換至 en_US 取得乾淨的語系清單"""
     global _cached_languages
     _cached_languages.clear()
-
     original_lang = bpy.context.preferences.view.language
 
     try:
-        # 暫時切換到英文以獲取標準標識符，避免亂碼
         bpy.context.preferences.view.language = 'en_US'
         prop = bpy.types.PreferencesView.bl_rna.properties['language']
 
         for item in prop.enum_items:
-            # 存儲 (標識符, 顯示名稱, 描述)
             _cached_languages.append(
                 (item.identifier, item.name, item.identifier)
             )
+
     except Exception as e:
         print("Language cache error:", e)
         _cached_languages = [('en_US', 'English (US)', 'en_US')]
+
     finally:
+
         try:
             bpy.context.preferences.view.language = original_lang
+
         except:
             pass
 
 def get_available_languages(self, context):
-    """依賴快取，避免在 UI 繪製時重複執行邏輯"""
+
     if not _cached_languages:
         build_language_cache()
     return _cached_languages
 
-# ==================================================
-# i18n 文字翻譯 (沿用原版字典)
-# ==================================================
 
-# Internationalization dictionary
 i18n_dict = {
     'en_US': {
         'cycle_count': "Cycle Count",
@@ -306,19 +298,19 @@ i18n_dict = {
 }
 
 def get_text(key, lang=None):
-    """獲取翻譯文字邏輯"""
+
     if lang is None:
+
         try:
             lang = bpy.context.preferences.view.language
+
         except:
             lang = 'en_US'
+
     if lang not in i18n_dict:
         lang = 'en_US'
     return i18n_dict[lang].get(key, i18n_dict['en_US'].get(key, key))
 
-# ==================================================
-# Operators (嚴格參考 b3d-ui-langloop.py 實作)
-# ==================================================
 
 class LANGSWITCH_OT_add_language(Operator):
     bl_idname = "langswitch.add_language"
@@ -327,9 +319,11 @@ class LANGSWITCH_OT_add_language(Operator):
 
     def execute(self, context):
         prefs = get_prefs()
+
         if prefs.cycle_count < 10:
             prefs.cycle_count += 1
         return {'FINISHED'}
+
 
 class LANGSWITCH_OT_remove_language(Operator):
     bl_idname = "langswitch.remove_language"
@@ -339,11 +333,14 @@ class LANGSWITCH_OT_remove_language(Operator):
 
     def execute(self, context):
         prefs = get_prefs()
+
         if prefs.cycle_count > 2 and self.index >= 2:
+
             for i in range(self.index, prefs.cycle_count - 1):
                 setattr(prefs, f"language_{i}", getattr(prefs, f"language_{i + 1}"))
             prefs.cycle_count -= 1
         return {'FINISHED'}
+
 
 class LANGSWITCH_OT_cycle_language(Operator):
     bl_idname = "langswitch.cycle_language"
@@ -353,30 +350,23 @@ class LANGSWITCH_OT_cycle_language(Operator):
     def execute(self, context):
         prefs = get_prefs()
         current_lang = context.preferences.view.language
-        
         lang_list = [getattr(prefs, f"language_{i}") for i in range(prefs.cycle_count)]
 
         try:
             idx = lang_list.index(current_lang)
             next_idx = (idx + 1) % len(lang_list)
+
         except ValueError:
             next_idx = 0
-
         target_lang = lang_list[next_idx]
         context.preferences.view.language = target_lang
         self.report({'INFO'}, f"{get_text('switch_to')} {target_lang}")
         return {'FINISHED'}
 
-# ==================================================
-# Preferences UI 排版 (嚴格參考原版排版)
-# ==================================================
 
 class LANGSWITCH_Preferences(AddonPreferences):
     bl_idname = __package__
-
     cycle_count: IntProperty(name="Cycle Count", default=2, min=2, max=10)
-
-    # 語言槽位定義 (使用 EnumProperty 連結快取函數)
     language_0: EnumProperty(items=get_available_languages)
     language_1: EnumProperty(items=get_available_languages)
     language_2: EnumProperty(items=get_available_languages)
@@ -391,51 +381,37 @@ class LANGSWITCH_Preferences(AddonPreferences):
     def draw(self, context):
         layout = self.layout
         current_lang = context.preferences.view.language
-
         layout.separator()
         layout.label(text=get_text('select_languages', current_lang))
-        
-        # 嚴格參考原版 box 排版與 icon 設置
         box = layout.box()
+
         for i in range(self.cycle_count):
             row = box.row(align=True)
-            
-            # 刪除按鈕欄位
             btn_col = row.column(align=False)
+
             if i < 2: btn_col.enabled = False
             remove_op = btn_col.operator("langswitch.remove_language", text="", icon='REMOVE')
             remove_op.index = i
-
-            # 語系選擇欄位
             space = "\u0020"
             row.prop(self, f"language_{i}", text=f"{space}{get_text('language', current_lang)} {i+1} ")
 
         if self.cycle_count < 10:
             row = box.row()
             row.operator("langswitch.add_language", text="", icon='ADD')
-        
         layout.separator()
         layout.label(text=get_text('shortcut_hint', current_lang))
-
-# ==================================================
-# Register
-# ==================================================
 
 addon_keymaps = []
 
 def register():
-    # 註冊順序與快取建立
     bpy.utils.register_class(LANGSWITCH_OT_add_language)
     bpy.utils.register_class(LANGSWITCH_OT_remove_language)
     bpy.utils.register_class(LANGSWITCH_OT_cycle_language)
     bpy.utils.register_class(LANGSWITCH_Preferences)
-
-    # 在註冊時建立快取，確保標籤名稱正確
     build_language_cache()
-
-    # 註冊快速鍵
     wm = bpy.context.window_manager
     kc = wm.keyconfigs.addon
+
     if kc:
         km = kc.keymaps.new(name='Window', space_type='EMPTY')
         kmi = km.keymap_items.new(
@@ -445,10 +421,10 @@ def register():
         addon_keymaps.append((km, kmi))
 
 def unregister():
+
     for km, kmi in addon_keymaps:
         km.keymap_items.remove(kmi)
     addon_keymaps.clear()
-
     bpy.utils.unregister_class(LANGSWITCH_Preferences)
     bpy.utils.unregister_class(LANGSWITCH_OT_cycle_language)
     bpy.utils.unregister_class(LANGSWITCH_OT_remove_language)
